@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import {useMemo, useState} from "react";
 
 const WEIGHTS = [2, 4, 8, 5, 10, 9, 7, 3, 6];
 
