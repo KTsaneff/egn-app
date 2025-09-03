@@ -1,69 +1,68 @@
-# React + TypeScript + Vite
+# EGN Validator & Generator (React + TypeScript)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Validate and generate Bulgarian **EGN** numbers entirely in the browser. Built with **React + TypeScript + Vite** and deployed to **GitHub Pages** via **GitHub Actions**.
 
-Currently, two official plugins are available:
+> ⚠️ **Educational use only.** Do **not** enter real EGN values. The app runs fully client‑side; no data is sent to a server or stored.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## Live Demo
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* **URL:** `https://ktsaneff.github.io/egn-app/`
+* **Status:** ![CI/CD](https://github.com/KTsaneff/egn-app/actions/workflows/pages.yml/badge.svg)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## Features
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+* ✅ **Validation** of EGN (10 digits) with:
+
+  * Century‑encoded month handling (1800/1900/2000)
+  * Real Gregorian date check (incl. leap years)
+  * Checksum verification (weights `2,4,8,5,10,9,7,3,6` and mod‑11 with 10→0 rule)
+  * Sex inference from the 9th digit (even = male, odd = female)
+* ✅ **Generation** of valid EGNs with options:
+
+  * Specify **sex** (male/female/any)
+  * Optional **exact birth date**
+* 🔄 **CI/CD**: automatic build & deploy to GitHub Pages on every push to `main`
+* 🧪 (Roadmap) **Unit tests** with Vitest + RTL
+* 🧰 (Roadmap) Batch generation, CSV export, copy-to-clipboard, history log
+
+---
+
+## Quick Start (Local Dev)
+
+> Requires **Node.js 20+** and **npm**.
+
+```bash
+# 1) Clone
+git clone https://github.com/KTsaneff/egn-app.git
+cd egn-app
+
+# 2) Install deps
+npm install
+
+# 3) Start dev server
+npm run dev
+# Open the printed local URL (e.g. http://localhost:5173)
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Available Scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```bash
+npm run dev     # Start Vite dev server (HMR)
+npm run build   # Production build to ./dist
+npm run preview # Preview the production build locally
+```
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## Project Structure
+
+```
+egn-app/
+├─ src/
+│  ├─ App.tsx           # UI with validator + generator (Step 1)
+│  └─
 ```
